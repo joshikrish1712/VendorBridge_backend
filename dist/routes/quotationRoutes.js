@@ -1,0 +1,14 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const quotationController_1 = require("../controllers/quotationController");
+const auth_1 = require("../middleware/auth");
+const client_1 = require("@prisma/client");
+const router = (0, express_1.Router)();
+router.use(auth_1.authenticate);
+router.post("/", (0, auth_1.authorize)([client_1.Role.VENDOR]), quotationController_1.quotationController.submit);
+router.get("/vendor/my", (0, auth_1.authorize)([client_1.Role.VENDOR]), quotationController_1.quotationController.getVendorQuotations);
+router.get("/rfq/:rfqId", (0, auth_1.authorize)([client_1.Role.ADMIN, client_1.Role.PROCUREMENT_OFFICER, client_1.Role.MANAGER]), quotationController_1.quotationController.getByRFQ);
+router.get("/rfq/:rfqId/compare", (0, auth_1.authorize)([client_1.Role.ADMIN, client_1.Role.PROCUREMENT_OFFICER, client_1.Role.MANAGER]), quotationController_1.quotationController.compare);
+router.get("/:id", quotationController_1.quotationController.getById);
+exports.default = router;
