@@ -12,9 +12,6 @@
     "prisma:studio": "prisma studio",
     "seed": "ts-node prisma/seed.ts"
   },
-  "engines": {
-    "node": "22.x"
-  },
   "dependencies": {
     "@prisma/client": "^5.14.0",
     "bcryptjs": "^2.4.3",
